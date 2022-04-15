@@ -1,5 +1,13 @@
+/* Game functions */
 
-//fight function
+//function to generate a random numeric value
+var randomNumber = function (min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+    return value;
+};
+
+
 var fight = function (enemy) {
     //repeat and execute as long as the enemy-robot is alive
     while (playerInfo.health > 0 && enemy.health > 0) {
@@ -67,11 +75,9 @@ var fight = function (enemy) {
 //function to start a new game
 var startGame = function () {
     //reset player stats
-    playerInfo.health = 100;
-    playerInfo.attack = 10;
-    playerInfo.money = 10;
     playerInfo.reset();
 
+    //fight each enemy robot by looping over them and fighting them one at a time
     for (var i = 0; i < enemyInfo.length; i++) {
         if (playerInfo.health > 0) {
             //let the player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
@@ -107,6 +113,7 @@ var startGame = function () {
             break;
         }
     }
+    //after loop ends, we are either out of player.health or enemies to fight, so run endGame function
     endGame();
 };
 
@@ -165,14 +172,19 @@ var shop = function () {
     }
 };
 
-//function to generate a random numeric value
-var randomNumber = function (min, max) {
-    var value = Math.floor(Math.random() * (max - min + 1) + min);
+//function to set name
+var getPlayerName = function() {
+    var name = "";
 
-    return value;
+    while (name === "" || name === null) {
+        name = prompt("What is your robot's name?");
+    }
+    console.log("Your robot's name is " + name);
+    return name;
 };
+
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
@@ -218,5 +230,12 @@ var enemyInfo = [
     }
 ];
 
-// start first game when page loads
+console.log(enemyInfo);
+console.log(enemyInfo[0]);
+console.log(enemyInfo[0].name);
+console.log(enemyInfo[0]['attack']);
+
+/* END GAME INFORMATION/VARIABLES */
+
+/* RUN GAME WHEN THE PAGE LOADS */
 startGame();
